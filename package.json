@@ -1,0 +1,31 @@
+{
+  "name": "vscodesnippets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vincenius/vscode-snippets.git"
+  },
+  "author": "Vincent Will",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vincenius/vscode-snippets/issues"
+  },
+  "homepage": "https://github.com/Vincenius/vscode-snippets#readme",
+  "dependencies": {
+    "@zeit/next-sass": "^1.0.1",
+    "classnames": "^2.2.6",
+    "next": "^8.0.3",
+    "node-sass": "^4.11.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-highlight": "^0.12.0"
+  }
+}

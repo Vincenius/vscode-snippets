@@ -1,0 +1,8 @@
+.details,
+.edit {
+    display: none;
+
+    &.visible {
+        display: block;
+    }
+}
