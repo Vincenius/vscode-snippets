@@ -5,7 +5,9 @@ export default [
         trigger: "funccomp", 
         code: `function Welcome(props) {
     return <h1>Hello, {props.name}</h1>
-}`,
+}
+
+export default Welcome`,
     },
     {
         description: "Class Component", 
@@ -14,7 +16,9 @@ export default [
     render() {
         return <h1>Hello, {this.props.name}</h1>
     }
-}`
+}
+
+export default Welcome`
     }
 ]
 

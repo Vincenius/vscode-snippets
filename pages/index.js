@@ -1,7 +1,9 @@
 import Head from 'next/head'
 import generate from './helper/generate'
 import SnippetSelect from './components/SnippetSelect'
+import Header from './components/Header'
 
+import global from './global.scss'
 import reactSnippets from './snippets/react'
 // https://highlightjs.org/download/
 
@@ -9,7 +11,7 @@ class Home extends React.Component {
     constructor() {
         super()
         this.generate = this.generate.bind(this)
-        this.updateCode = this.updateCode.bind(this)
+        this.updateSnippet = this.updateSnippet.bind(this)
         this.state = {
             reactSnippets
         }
@@ -24,9 +26,9 @@ class Home extends React.Component {
         console.log(result)
     }
 
-    updateCode(newCode, index) {
+    updateSnippet(value, type, index) {
         let newState = Object.assign({}, this.state);
-        newState.reactSnippets[index].code = newCode;
+        newState.reactSnippets[index][type] = value;
         this.setState(newState);
     }
 
@@ -39,25 +41,29 @@ class Home extends React.Component {
                     <title>VS Code Snippet Generator</title>
                     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                     <link rel="stylesheet" href="static/highlight.js/styles/vs.css"></link>
+                    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"></link>
                 </Head>
-                <h1>VS Code Snippet Generator</h1>
-                <div>
+                
+                <Header />
+
+                <main>
                     {
                         reactSnippets.map((snippet, index) => {
-                            console.log(snippet.code)
                             return (
                                 <SnippetSelect
                                     key={index}
                                     type="React"
-                                    name={snippet.description}
+                                    description={snippet.description}
                                     trigger={snippet.trigger}
                                     code={snippet.code}
-                                    changeCode={ e => this.updateCode(e.target.value, index) }
+                                    changeCode={ e => this.updateSnippet(e.target.value, 'code', index) }
+                                    changeDescription={ e => this.updateSnippet(e.target.value, 'description', index) }
+                                    changeTrigger={ e => this.updateSnippet(e.target.value, 'trigger', index) }
                                 />
                             )
                         })
                     }
-                </div>
+                </main>
                 <button onClick={this.generate}>Generate</button>
             </div>
         )

@@ -1,6 +1,6 @@
 export default ({description, trigger, code}) => {
     const codeArray = code.split(/\r?\n/)
-    const codeString = `"${codeArray.join('",\n\t\t\t"')}"` // TODO maybe add tabs?
+    const codeString = `"${codeArray.join('",\n\t\t\t"')}"`
 
     return `"${description}": {
         "prefix": "${trigger}",
