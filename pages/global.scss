@@ -2,3 +2,12 @@ body {
     margin: 0;
     font-family: 'Open Sans', sans-serif;
 }
+
+a {
+    color: #3a7fb4;
+    cursor: pointer;
+
+    &:hover {
+        color: #7eb0d6;
+    }
+}

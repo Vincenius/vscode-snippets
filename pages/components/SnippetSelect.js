@@ -1,4 +1,5 @@
 import Highlight from 'react-highlight'
+import Textarea from 'react-textarea-autosize';
 import cn from 'classnames'
 import style from './SnippetSelect.scss'
 
@@ -27,7 +28,7 @@ class SnippetSelect extends React.Component {
         const editHideClass = cn(style.edit, !showEdit ? style.visible : '')
 
         return (
-            <tbody>
+            <tbody className={style.container}>
                 <tr>
                     <td>
                         <input type="checkbox" defaultChecked />
@@ -63,7 +64,7 @@ class SnippetSelect extends React.Component {
                             {code}
                         </Highlight>
                         <div className={editClass}>
-                            <textarea value={code} onChange={changeCode}></textarea>
+                            <Textarea value={code} onChange={changeCode} />
                         </div>
                     </td>
                 </tr>

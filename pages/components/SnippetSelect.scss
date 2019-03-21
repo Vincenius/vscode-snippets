@@ -1,8 +1,26 @@
-.details,
-.edit {
+.container {
+    td {
+        padding: 3px 10px;
+    }
+
+    textarea {
+        box-sizing: border-box;
+        width: 100%;
+    }
+}
+
+.details {
     display: none;
 
     &.visible {
         display: table-row;
+    }
+}
+
+.edit {
+    display: none;
+
+    &.visible {
+        display: block;
     }
 }

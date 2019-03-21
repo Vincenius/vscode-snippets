@@ -19,9 +19,9 @@ class Home extends React.Component {
     }
 
     generate() {
-        const { reactSnippets } = this.state
+        const { snippets } = this.state
         let result = ''
-        for (const snippet of reactSnippets) {
+        for (const snippet of snippets) {
             result = `${result} ${generate(snippet)},`
         }
         console.log(result)
@@ -29,7 +29,7 @@ class Home extends React.Component {
 
     updateSnippet(value, type, index) {
         let newState = Object.assign({}, this.state);
-        newState.reactSnippets[index][type] = value;
+        newState.snippets[index][type] = value;
         this.setState(newState);
     }
 
@@ -44,7 +44,7 @@ class Home extends React.Component {
                     <link rel="stylesheet" href="static/highlight.js/styles/vs.css"></link>
                     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"></link>
                 </Head>
-                
+
                 <Header />
 
                 <main>
