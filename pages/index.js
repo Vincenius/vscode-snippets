@@ -3,8 +3,9 @@ import generate from './helper/generate'
 import SnippetSelect from './components/SnippetSelect'
 import Header from './components/Header'
 
-import global from './global.scss'
-import reactSnippets from './snippets/react'
+import './global.scss'
+import style from './index.scss'
+import { reactSnippets, htmlSnippets } from './snippets'
 // https://highlightjs.org/download/
 
 class Home extends React.Component {
@@ -13,7 +14,7 @@ class Home extends React.Component {
         this.generate = this.generate.bind(this)
         this.updateSnippet = this.updateSnippet.bind(this)
         this.state = {
-            reactSnippets
+            snippets: [...reactSnippets, ...htmlSnippets]
         }
     }
 
@@ -33,7 +34,7 @@ class Home extends React.Component {
     }
 
     render() {
-        const { reactSnippets } = this.state
+        const { snippets } = this.state
 
         return (
             <div>
@@ -47,22 +48,34 @@ class Home extends React.Component {
                 <Header />
 
                 <main>
-                    {
-                        reactSnippets.map((snippet, index) => {
-                            return (
-                                <SnippetSelect
-                                    key={index}
-                                    type="React"
-                                    description={snippet.description}
-                                    trigger={snippet.trigger}
-                                    code={snippet.code}
-                                    changeCode={ e => this.updateSnippet(e.target.value, 'code', index) }
-                                    changeDescription={ e => this.updateSnippet(e.target.value, 'description', index) }
-                                    changeTrigger={ e => this.updateSnippet(e.target.value, 'trigger', index) }
-                                />
-                            )
-                        })
-                    }
+                    <table className={style.table}>
+                        <tbody>
+                            <tr>
+                                <th>Use</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Trigger</th>
+                                <th>Preview Code</th>
+                                <th>Edit</th>
+                            </tr>
+                        </tbody>
+                        {
+                            snippets.map((snippet, index) => {
+                                return (
+                                    <SnippetSelect
+                                        key={index}
+                                        type="TODO"
+                                        description={snippet.description}
+                                        trigger={snippet.trigger}
+                                        code={snippet.code}
+                                        changeCode={ e => this.updateSnippet(e.target.value, 'code', index) }
+                                        changeDescription={ e => this.updateSnippet(e.target.value, 'description', index) }
+                                        changeTrigger={ e => this.updateSnippet(e.target.value, 'trigger', index) }
+                                    />
+                                )
+                            })
+                        }
+                    </table>
                 </main>
                 <button onClick={this.generate}>Generate</button>
             </div>

@@ -23,32 +23,51 @@ class SnippetSelect extends React.Component {
             changeDescription
         } = this.props
 
-        return (
-            <div>
-                <div>
-                    {type} - 
-                    {description} - 
-                    {trigger} - 
-                    <button onClick={() => { this.setState(prevState => ({ showDetails: !prevState.showDetails }))}}>
-                        Details
-                    </button> - 
-                    <input type="checkbox" defaultChecked />
-                </div>
-                <div className={cn(style.details, showDetails ? style.visible : '')}>
-                    <Highlight className='javascript hljs'>
-                        {code}
-                    </Highlight>
-                    <button onClick={() => { this.setState(prevState => ({ showEdit: !prevState.showEdit }))}}>
-                        Edit
-                    </button>
+        const editClass = cn(style.edit, showEdit ? style.visible : '')
+        const editHideClass = cn(style.edit, !showEdit ? style.visible : '')
 
-                    <div className={cn(style.edit, showEdit ? style.visible : '')}>
-                        <input value={trigger} onChange={changeTrigger} />
-                        <input value={description} onChange={changeDescription} />
-                        <textarea value={code} onChange={changeCode}></textarea>
-                    </div>
-                </div>
-            </div>
+        return (
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="checkbox" defaultChecked />
+                    </td>
+                    <td>
+                        {type}
+                    </td>
+                    <td>
+                        <span className={editHideClass}>{description}</span>
+                        <input className={editClass} value={description} onChange={changeDescription} />
+                    </td>
+                    <td>
+                        <span className={editHideClass}>{trigger}</span>
+                        <input className={editClass} value={trigger} onChange={changeTrigger} />
+                    </td>
+                    <td>
+                        <a onClick={() => { this.setState(prevState => ({ showDetails: !prevState.showDetails }))}}>
+                            { showDetails
+                                ? 'Hide Code'
+                                : 'Show code'
+                            }
+                        </a>
+                    </td>
+                    <td>
+                        <a onClick={() => { this.setState(prevState => ({ showEdit: !prevState.showEdit }))}}>
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+                <tr className={cn(style.details, showDetails ? style.visible : '')}>
+                    <td colSpan={6}>
+                        <Highlight className={cn(editHideClass, 'javascript hljs')}>
+                            {code}
+                        </Highlight>
+                        <div className={editClass}>
+                            <textarea value={code} onChange={changeCode}></textarea>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
         )
     }
 }
