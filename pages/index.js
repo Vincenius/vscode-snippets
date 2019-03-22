@@ -6,7 +6,11 @@ import Header from './components/Header'
 
 import './global.scss'
 import style from './index.scss'
-import { reactSnippets, cssSnippets } from './snippets'
+import {
+    reactSnippets,
+    htmlSnippets,
+    cssSnippets
+} from './snippets'
 
 class Home extends React.Component {
     constructor() {
@@ -15,8 +19,9 @@ class Home extends React.Component {
         this.updateSnippet = this.updateSnippet.bind(this)
         this.state = {
             snippets: [
+                ...htmlSnippets,
                 ...reactSnippets,
-                ...cssSnippets
+                ...cssSnippets,
             ],
             types: [],
             selectedTypes: []

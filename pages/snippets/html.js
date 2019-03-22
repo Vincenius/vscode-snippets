@@ -1,20 +1,10 @@
-export default [
-    {
-        description: "HTML Boilerplate", 
-        trigger: "html", 
-        code: `<!DOCTYPE html>
-<html>
-    <head>
-        <title>Page Title</title>
-    </head>
-    <body>
+import snippetMapper from '../helper/snippetMapper'
 
-    </body>
-</html>`,
+export default snippetMapper([
+    {
+        description: "HTML - Defines the document type",
+        trigger: "doctype",
+        code: `<!DOCTYPE>
+$1`,
     }
-].map(elem => {
-    return {
-        ...elem,
-        type: 'HTML'
-    }
-});
+], 'HTML')
