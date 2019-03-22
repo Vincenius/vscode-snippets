@@ -30,10 +30,10 @@ class SnippetSelect extends React.Component {
         return (
             <tbody className={style.container}>
                 <tr>
-                    <td>
+                    <td className={style.useColumn}>
                         <input type="checkbox" defaultChecked />
                     </td>
-                    <td>
+                    <td className={style.typeColumn}>
                         {type}
                     </td>
                     <td>
@@ -44,7 +44,7 @@ class SnippetSelect extends React.Component {
                         <span className={editHideClass}>{trigger}</span>
                         <input className={editClass} value={trigger} onChange={changeTrigger} />
                     </td>
-                    <td>
+                    <td className={style.previewCodeColumn}>
                         <a onClick={() => { this.setState(prevState => ({ showDetails: !prevState.showDetails }))}}>
                             { showDetails
                                 ? 'Hide Code'
@@ -52,9 +52,12 @@ class SnippetSelect extends React.Component {
                             }
                         </a>
                     </td>
-                    <td>
+                    <td className={style.editColumn}>
                         <a onClick={() => { this.setState(prevState => ({ showEdit: !prevState.showEdit }))}}>
-                            Edit
+                        { showEdit
+                                ? 'Submit'
+                                : 'Edit'
+                            }
                         </a>
                     </td>
                 </tr>

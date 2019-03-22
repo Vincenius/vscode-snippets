@@ -12,4 +12,9 @@ export default [
     </body>
 </html>`,
     }
-]
+].map(elem => {
+    return {
+        ...elem,
+        type: 'HTML'
+    }
+});

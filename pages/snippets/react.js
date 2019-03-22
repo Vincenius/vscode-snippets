@@ -20,7 +20,12 @@ export default Welcome`,
 
 export default Welcome`
     }
-]
+].map(elem => {
+    return {
+        ...elem,
+        type: 'React'
+    }
+});
 
 /*
 toggle

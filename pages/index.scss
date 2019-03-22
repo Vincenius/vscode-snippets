@@ -1,5 +1,30 @@
+@import './variables.scss';
+
+.container {
+    max-width: 1200px;
+    margin: 50px auto;
+}
+
 .table {
+    width: 100%;
+
+    th {
+        text-align: left;
+        padding: 0 10px;
+    }
+
     tbody:nth-child(2n) {
         background-color: lightgrey;
     }
 }
+
+.active {
+    &.react {
+        background-color: $react;
+    }
+
+    &.html {
+        background-color: $html;
+    }
+}
+

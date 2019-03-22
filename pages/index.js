@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import cn from 'classnames'
 import generate from './helper/generate'
 import SnippetSelect from './components/SnippetSelect'
 import Header from './components/Header'
@@ -14,8 +15,33 @@ class Home extends React.Component {
         this.generate = this.generate.bind(this)
         this.updateSnippet = this.updateSnippet.bind(this)
         this.state = {
-            snippets: [...reactSnippets, ...htmlSnippets]
+            snippets: [
+                ...reactSnippets,
+                ...htmlSnippets
+            ],
+            types: [],
+            selectedTypes: []
         }
+    }
+
+    componentWillMount() {
+        const types = [...new Set(this.state.snippets.map(s => s.type))]
+        this.setState({
+            types,
+            selectedTypes: types
+        })
+    }
+
+    toggleType(type) {
+        this.setState(prevState => {
+            const selectedTypes = prevState.selectedTypes.includes(type)
+                ? prevState.selectedTypes.filter(t => t !== type)
+                : [ ...prevState.selectedTypes, type ]
+
+            return {
+                selectedTypes,
+            };
+        });
     }
 
     generate() {
@@ -34,7 +60,7 @@ class Home extends React.Component {
     }
 
     render() {
-        const { snippets } = this.state
+        const { snippets, types, selectedTypes } = this.state
 
         return (
             <div>
@@ -47,7 +73,27 @@ class Home extends React.Component {
 
                 <Header />
 
-                <main>
+                <main className={style.container}>
+                    <div>
+                        {
+                            types.map((type, index) => {
+                                return(
+                                    <button 
+                                        key={index}
+                                        className={cn(
+                                            selectedTypes.includes(type) ? style.active : '', 
+                                            style[type.toLowerCase()]
+                                        )}
+                                        onClick={() => { 
+                                            this.toggleType(type)
+                                        }}
+                                    >
+                                        {type}
+                                    </button>
+                                )
+                            })
+                        }
+                    </div>
                     <table className={style.table}>
                         <tbody>
                             <tr>
@@ -62,16 +108,18 @@ class Home extends React.Component {
                         {
                             snippets.map((snippet, index) => {
                                 return (
-                                    <SnippetSelect
-                                        key={index}
-                                        type="TODO"
-                                        description={snippet.description}
-                                        trigger={snippet.trigger}
-                                        code={snippet.code}
-                                        changeCode={ e => this.updateSnippet(e.target.value, 'code', index) }
-                                        changeDescription={ e => this.updateSnippet(e.target.value, 'description', index) }
-                                        changeTrigger={ e => this.updateSnippet(e.target.value, 'trigger', index) }
-                                    />
+                                    selectedTypes.includes(snippet.type)
+                                        ? <SnippetSelect
+                                            key={index}
+                                            type={snippet.type}
+                                            description={snippet.description}
+                                            trigger={snippet.trigger}
+                                            code={snippet.code}
+                                            changeCode={ e => this.updateSnippet(e.target.value, 'code', index) }
+                                            changeDescription={ e => this.updateSnippet(e.target.value, 'description', index) }
+                                            changeTrigger={ e => this.updateSnippet(e.target.value, 'trigger', index) }
+                                        />
+                                        : ''
                                 )
                             })
                         }
