@@ -6,8 +6,7 @@ import Header from './components/Header'
 
 import './global.scss'
 import style from './index.scss'
-import { reactSnippets, htmlSnippets } from './snippets'
-// https://highlightjs.org/download/
+import { reactSnippets, cssSnippets } from './snippets'
 
 class Home extends React.Component {
     constructor() {
@@ -17,7 +16,7 @@ class Home extends React.Component {
         this.state = {
             snippets: [
                 ...reactSnippets,
-                ...htmlSnippets
+                ...cssSnippets
             ],
             types: [],
             selectedTypes: []
@@ -44,19 +43,24 @@ class Home extends React.Component {
         });
     }
 
-    generate() {
-        const { snippets } = this.state
-        let result = ''
-        for (const snippet of snippets) {
-            result = `${result} ${generate(snippet)},`
-        }
-        console.log(result)
-    }
-
     updateSnippet(value, type, index) {
         let newState = Object.assign({}, this.state);
         newState.snippets[index][type] = value;
         this.setState(newState);
+    }
+
+    generate() {
+        const { snippets, selectedTypes } = this.state
+        let result = ''
+        for (const snippet of snippets) {
+            if (
+                selectedTypes.includes(snippet.type) &&
+                snippet.active
+            ) {
+                result = `${result} ${generate(snippet)},`
+            }
+        }
+        console.log(result)
     }
 
     render() {
@@ -74,17 +78,18 @@ class Home extends React.Component {
                 <Header />
 
                 <main className={style.container}>
-                    <div>
+                    <div className={style.buttonContainer}>
                         {
                             types.map((type, index) => {
                                 return(
-                                    <button 
+                                    <button
                                         key={index}
                                         className={cn(
-                                            selectedTypes.includes(type) ? style.active : '', 
+                                            style.button,
+                                            selectedTypes.includes(type) ? style.active : '',
                                             style[type.toLowerCase()]
                                         )}
-                                        onClick={() => { 
+                                        onClick={() => {
                                             this.toggleType(type)
                                         }}
                                     >
@@ -105,24 +110,24 @@ class Home extends React.Component {
                                 <th>Edit</th>
                             </tr>
                         </tbody>
-                        {
-                            snippets.map((snippet, index) => {
-                                return (
-                                    selectedTypes.includes(snippet.type)
-                                        ? <SnippetSelect
-                                            key={index}
-                                            type={snippet.type}
-                                            description={snippet.description}
-                                            trigger={snippet.trigger}
-                                            code={snippet.code}
-                                            changeCode={ e => this.updateSnippet(e.target.value, 'code', index) }
-                                            changeDescription={ e => this.updateSnippet(e.target.value, 'description', index) }
-                                            changeTrigger={ e => this.updateSnippet(e.target.value, 'trigger', index) }
-                                        />
-                                        : ''
-                                )
-                            })
-                        }
+                        { snippets.map((snippet, index) => {
+                            return (
+                                selectedTypes.includes(snippet.type)
+                                    ? <SnippetSelect
+                                        key={index}
+                                        type={snippet.type}
+                                        description={snippet.description}
+                                        trigger={snippet.trigger}
+                                        code={snippet.code}
+                                        active={snippet.active}
+                                        toggleActive={ active => this.updateSnippet(active, 'active', index)  }
+                                        changeCode={ e => this.updateSnippet(e.target.value, 'code', index) }
+                                        changeDescription={ e => this.updateSnippet(e.target.value, 'description', index) }
+                                        changeTrigger={ e => this.updateSnippet(e.target.value, 'trigger', index) }
+                                    />
+                                    : ''
+                            )
+                        })}
                     </table>
                 </main>
                 <button onClick={this.generate}>Generate</button>

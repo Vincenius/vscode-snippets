@@ -14,8 +14,24 @@
     }
 
     tbody:nth-child(2n) {
-        background-color: lightgrey;
+        background-color: $lightGrey;
     }
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+.button {
+    cursor: pointer;
+    background-color: $middleGrey;
+    border: none;
+    outline: none;
+    padding: 10px 40px;
+    border-radius: 20px;
+    font-size: 15px;
 }
 
 .active {

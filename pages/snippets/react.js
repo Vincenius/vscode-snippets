@@ -1,8 +1,10 @@
-export default [
+import snippetMapper from '../helper/snippetMapper'
+
+export default snippetMapper([
     {
         scope: "javascript,typescript", // move this?
-        description: "Function Component", 
-        trigger: "funccomp", 
+        description: "Function Component",
+        trigger: "funccomp",
         code: `function Welcome(props) {
     return <h1>Hello, {props.name}</h1>
 }
@@ -10,7 +12,7 @@ export default [
 export default Welcome`,
     },
     {
-        description: "Class Component", 
+        description: "Class Component",
         trigger: "classcomp",
         code: `class Welcome extends React.Component {
     render() {
@@ -20,12 +22,7 @@ export default Welcome`,
 
 export default Welcome`
     }
-].map(elem => {
-    return {
-        ...elem,
-        type: 'React'
-    }
-});
+], 'React')
 
 /*
 toggle
