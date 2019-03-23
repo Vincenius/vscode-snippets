@@ -1,20 +1,15 @@
 import formatSnippetJson from '../helper/formatSnippetJson.js'
 
-import htmlSnippets from './html'
-import cssSnippets from './css'
-
+import pythonJson from './python.json' // https://marketplace.visualstudio.com/items?itemName=ms-python.python
+import htmlJson from './html.json' // https://marketplace.visualstudio.com/items?itemName=abusaidm.html-snippets
 import reactJson from './react.json' // https://marketplace.visualstudio.com/items?itemName=xabikos.ReactSnippets
 
-const reactSnippets = formatSnippetJson(reactJson, 'React')
+const htmlSnippets = formatSnippetJson(htmlJson, 'HTML', 'html')
+const pythonSnippets = formatSnippetJson(pythonJson, 'Python', 'python')
+const reactSnippets = formatSnippetJson(reactJson, 'React', 'react')
 
-// TODO sort
 export {
+    htmlSnippets,
+    pythonSnippets,
     reactSnippets,
-    cssSnippets,
-    htmlSnippets
 }
-
-// https://marketplace.visualstudio.com/search?target=VSCode&category=Snippets&sortBy=Downloads
-// https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets
-// https://github.com/abusaidm/html-snippets
-// scss

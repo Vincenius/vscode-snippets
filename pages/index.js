@@ -7,9 +7,9 @@ import Header from './components/Header'
 import './global.scss'
 import style from './index.scss'
 import {
-    reactSnippets,
     htmlSnippets,
-    cssSnippets
+    pythonSnippets,
+    reactSnippets,
 } from './snippets'
 
 class Home extends React.Component {
@@ -20,8 +20,8 @@ class Home extends React.Component {
         this.state = {
             snippets: [
                 ...htmlSnippets,
+                ...pythonSnippets,
                 ...reactSnippets,
-                ...cssSnippets,
             ],
             types: [],
             selectedTypes: []
@@ -29,10 +29,22 @@ class Home extends React.Component {
     }
 
     componentWillMount() {
-        const types = [...new Set(this.state.snippets.map(s => s.type))]
+        const snippets = this.state.snippets
+        const types = []
+        const map = new Map();
+        for (const snippet of snippets) {
+            if(!map.has(snippet.type)){
+                map.set(snippet.type, true);    // set any value to Map
+                types.push({
+                    typeName: snippet.type,
+                    cssClass: snippet.cssClass
+                });
+            }
+        }
+
         this.setState({
             types,
-            selectedTypes: types
+            selectedTypes: types.map(t => t.typeName)
         })
     }
 
@@ -86,19 +98,20 @@ class Home extends React.Component {
                     <div className={style.buttonContainer}>
                         {
                             types.map((type, index) => {
+                                const { typeName, cssClass } = type
                                 return(
                                     <button
                                         key={index}
                                         className={cn(
                                             style.button,
-                                            selectedTypes.includes(type) ? style.active : '',
-                                            style[type.toLowerCase()]
+                                            selectedTypes.includes(typeName) ? style.active : '',
+                                            style[cssClass]
                                         )}
                                         onClick={() => {
-                                            this.toggleType(type)
+                                            this.toggleType(typeName)
                                         }}
                                     >
-                                        {type}
+                                        {typeName}
                                     </button>
                                 )
                             })
