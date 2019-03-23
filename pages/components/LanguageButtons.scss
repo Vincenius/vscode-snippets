@@ -1,0 +1,70 @@
+@import '../variables.scss';
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.button {
+    cursor: pointer;
+    background-color: $middleGrey;
+    border: none;
+    outline: none;
+    padding: 10px 40px;
+    border-radius: 20px;
+    font-size: 15px;
+    margin: 10px;
+    -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+    box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+
+    &:hover {
+        filter: brightness(110%);
+    }
+}
+
+.active {
+    &.angular {
+        background-color: $angular;
+    }
+    &.csharp {
+        color: #fff;
+        background-color: $csharp;
+    }
+    &.dart {
+        color: #fff;
+        background-color: $dart;
+    }
+    &.go {
+        color: #fff;
+        background-color: $go;
+    }
+    &.html {
+        background-color: $html;
+    }
+    &.java {
+        color: #fff;
+        background-color: $java;
+    }
+    &.javascript {
+        background-color: $javascript;
+    }
+    &.python {
+        background-color: $python;
+    }
+    &.react {
+        background-color: $react;
+    }
+    &.ruby {
+        background-color: $ruby;
+    }
+    &.sass {
+        color: #fff;
+        background-color: $sass;
+    }
+    &.vue {
+        color: #fff;
+        background-color: $vue;
+    }
+}

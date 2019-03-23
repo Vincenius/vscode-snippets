@@ -1,9 +1,9 @@
-export default (json, type, cssClass) => {
+export default (json, language, cssClass) => {
     const result = []
 
     for (const key in json) {
         result.push({
-            type,
+            language,
             cssClass,
             active: true,
             name: key,

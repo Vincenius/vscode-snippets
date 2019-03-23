@@ -16,7 +16,7 @@ class SnippetSelect extends React.Component {
         const { showDetails, showEdit } = this.state
         const {
             active,
-            type,
+            language,
             code,
             trigger,
             description,
@@ -35,8 +35,8 @@ class SnippetSelect extends React.Component {
                     <td className={style.useColumn}>
                         <input type="checkbox" checked={active} onChange={() => toggleActive(!active)}/>
                     </td>
-                    <td className={style.typeColumn}>
-                        {type}
+                    <td className={style.languageColumn}>
+                        {language}
                     </td>
                     <td>
                         <span className={editHideClass}>{description}</span>
